@@ -1,0 +1,104 @@
+﻿@inject IJSRuntime JSRuntime;
+
+<div @ref=chartContainer />
+
+<style>
+    .parent {
+        background-color: black;
+    }
+
+    svg.main {
+        overflow: auto;
+    }
+
+    line.grid {
+        stroke: silver;
+        stroke-width: 0.5px;
+    }
+
+    text.grid-label {
+        fill: silver;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    text.year-label {
+        fill: gray;
+        font-size: 14px;
+    }
+
+    text.collapse-all {
+        fill: #034596;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    text.expand-all {
+        fill: silver;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+
+    text.category {
+        text-anchor: end;
+        font-weight: bold;
+        fill: #034596;
+    }
+
+    g.group-clickable {
+        user-select: none;
+        cursor: pointer;
+        fill: transparent;
+    }
+
+    rect.period-category {
+        fill: #009F9B;
+        fill-opacity: 0.2;
+        /*fill: rgba(0, 159, 155, 0.2);*/
+        rx: 16;
+    }
+
+    .ripple {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        transform: translate3d(0, 0, 0);
+    }
+
+    .ripple:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform .5s, opacity 1s;
+    }
+
+    .ripple:active:after {
+        transform: scale(0, 0);
+        opacity: .3;
+        transition: 0s;
+    }
+</style>
+
+@code {
+    ElementReference chartContainer;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            JSRuntime.InvokeVoidAsync("buildGantChart", chartContainer);
+        }
+    }
+}
