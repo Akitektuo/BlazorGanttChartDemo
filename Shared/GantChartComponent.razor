@@ -3,10 +3,6 @@
 <div @ref=chartContainer />
 
 <style>
-    .parent {
-        background-color: black;
-    }
-
     svg.main {
         overflow: auto;
     }
@@ -46,6 +42,11 @@
         fill: #034596;
     }
 
+    text.sublabel {
+        text-anchor: end;
+        font-size: 14px;
+    }
+
     g.group-clickable {
         user-select: none;
         cursor: pointer;
@@ -55,8 +56,50 @@
     rect.period-category {
         fill: #009F9B;
         fill-opacity: 0.2;
-        /*fill: rgba(0, 159, 155, 0.2);*/
         rx: 16;
+    }
+
+    rect.period-subcategory {
+        fill: #009F9B;
+        rx: 12;
+    }
+
+    rect.expanded-background {
+        fill: #FFFFFF;
+        fill-opacity: 0.5;
+        rx: 4;
+        filter: drop-shadow(0 0 30px #333);
+        box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12);
+    }
+
+    line.now {
+        stroke: #FF5510;
+        stroke-width: 4px;
+        stroke-linecap: round;
+    }
+
+    circle.now-circle {
+        fill: #FF5510;
+    }
+
+    text.now-label {
+        fill: #FFFFFF;
+        text-anchor: middle;
+        dominant-baseline: middle;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    line.target-line {
+        stroke: #009F9B;
+        stroke-width: 1px;
+    }
+
+    text.target-text {
+        fill: #034596;
+        font-size: 11px;
+        font-weight: bold;
+        text-anchor: start;
     }
 
     .ripple {
